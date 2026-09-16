@@ -11,7 +11,7 @@
 body{font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:96px}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-img{width:100%;display:block;object-fit:cover}
+img{width:100%;display:block;object-fit:cover;background:#3b2418}
 a{color:inherit;text-decoration:none}
 .wrap{width:min(1100px,calc(100% - 28px));margin:0 auto}
 header{position:sticky;top:10px;z-index:20;width:min(1100px,calc(100% - 20px));margin:10px auto 0;background:rgba(243,239,232,.8);backdrop-filter:blur(16px);border-radius:18px;border:1px solid rgba(255,255,255,.45)}
@@ -20,7 +20,7 @@ header{position:sticky;top:10px;z-index:20;width:min(1100px,calc(100% - 20px));m
 .logo em{font-style:italic;color:var(--mute);font-weight:400}
 .icon{border:1px solid var(--line);background:#fff;border-radius:999px;min-height:42px;padding:0 14px;font-weight:700}
 .badge{background:#12100e;color:#fff;border-radius:99px;padding:1px 7px;font-size:12px;margin-left:4px}
-.hero{width:min(1100px,calc(100% - 20px));margin:14px auto;border-radius:26px;overflow:hidden;min-height:58vh;position:relative;display:flex;align-items:end}
+.hero{width:min(1100px,calc(100% - 20px));margin:14px auto;border-radius:26px;overflow:hidden;min-height:58vh;position:relative;display:flex;align-items:end;background:#2a1810}
 .hero img{position:absolute;inset:0;height:100%}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(18,16,14,.7))}
 .hero-copy{position:relative;z-index:1;color:#fff;padding:28px}
@@ -79,7 +79,7 @@ input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px s
   <button class="icon" onclick="openSheet('cart')">Cart <span class="badge" id="count">0</span></button>
 </div></header>
 <section class="hero" id="top">
-  <img src="https://images.unsplash.com/photo-1549007994-cb92caebd546?auto=format&fit=crop&w=1400&q=70" alt="Chocolate box"/>
+  <img src="https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Chocolate box"/>
   <div class="hero-copy">
     <div class="kicker">Sydney · Handmade</div>
     <h1>Chocolate with a quieter kind of luxury.</h1>
@@ -97,7 +97,7 @@ input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px s
   <div class="products" id="grid"></div>
 </div></section>
 <section><div class="split">
-  <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=1200&q=70" alt="Bonbons"/>
+  <img src="https://images.pexels.com/photos/65882/chocolate-dark-coffee-confiserie-65882.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Bonbons"/>
   <div class="split-copy">
     <div class="kicker">The studio</div>
     <h2>Made in Sydney, one shell at a time.</h2>
@@ -131,12 +131,12 @@ input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px s
 <div class="toast" id="toast"></div>
 <script>
 const P=[
-  {id:"swirl",name:"Signature Swirl",price:68,img:"https://images.unsplash.com/photo-1549007994-cb92caebd546?auto=format&fit=crop&w=800&q=70",blurb:"Blush and ocean-blue bonbons. 16 pieces."},
-  {id:"ocean",name:"Ocean Wave",price:48,img:"https://images.unsplash.com/photo-1606312619070-d48b4e809a91?auto=format&fit=crop&w=800&q=70",blurb:"Marble shells, vanilla ganache. 12 pieces."},
-  {id:"artisan",name:"Artisan Colour",price:72,img:"https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=800&q=70",blurb:"Teal, gold, ruby and leaf. 12 pieces."},
-  {id:"painted",name:"Painted Mix",price:58,img:"https://images.unsplash.com/photo-1511381939415-e44015466831?auto=format&fit=crop&w=800&q=70",blurb:"Speckled and landscape shells. 12 pieces."},
-  {id:"jewel",name:"Jewel Box",price:79,img:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=70",blurb:"Jewel tones, fruit and caramel. 16 pieces."},
-  {id:"thanks",name:"Thank You",price:64,img:"https://images.unsplash.com/photo-1527904324834-3b7f9485267f?auto=format&fit=crop&w=800&q=70",blurb:"Black tray, gold bow and a card. 16 pieces."}
+  {id:"swirl",name:"Signature Swirl",price:68,img:"https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=800",blurb:"Blush and ocean-blue bonbons. 16 pieces."},
+  {id:"ocean",name:"Ocean Wave",price:48,img:"https://images.pexels.com/photos/65882/chocolate-dark-coffee-confiserie-65882.jpeg?auto=compress&cs=tinysrgb&w=800",blurb:"Marble shells, vanilla ganache. 12 pieces."},
+  {id:"artisan",name:"Artisan Colour",price:72,img:"https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=800",blurb:"Teal, gold, ruby and leaf. 12 pieces."},
+  {id:"painted",name:"Painted Mix",price:58,img:"https://images.pexels.com/photos/41125/pexels-photo-41125.jpeg?auto=compress&cs=tinysrgb&w=800",blurb:"Speckled and landscape shells. 12 pieces."},
+  {id:"jewel",name:"Jewel Box",price:79,img:"https://images.pexels.com/photos/33783/osteo-diet-health-chocolate.jpg?auto=compress&cs=tinysrgb&w=800",blurb:"Jewel tones, fruit and caramel. 16 pieces."},
+  {id:"thanks",name:"Thank You",price:64,img:"https://images.pexels.com/photos/45202/brownie-dessert-cake-sweet-45202.jpeg?auto=compress&cs=tinysrgb&w=800",blurb:"Black tray, gold bow and a card. 16 pieces."}
 ];
 const cart=JSON.parse(localStorage.getItem("sc2")||"{}");
 let step=1,pay="apple",order=null;
@@ -147,11 +147,12 @@ const ship=()=>sub()>=120||!sub()?0:12;
 const find=id=>P.find(p=>p.id===id);
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",1600)}
 function add(id,d=1){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];save();draw();if(d>0)toast(find(id).name+" added")}
+function pic(src){return `<img src="${src}" alt="" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=800'">`}
 function draw(){
   document.getElementById("count").textContent=n();
-  document.getElementById("grid").innerHTML=P.map(p=>`<article class="card"><img src="${p.img}" alt="${p.name}"><div class="card-body"><h3 style="font-family:Fraunces,serif;font-size:22px;font-weight:500">${p.name}</h3><p class="muted">${p.blurb}</p><p class="price">$${p.price}</p><div class="row" style="margin-top:auto"><div class="qty"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]||0}</span><button onclick="add('${p.id}',1)">+</button></div><button class="btn d" style="flex:1" onclick="add('${p.id}',1)">Add</button></div></div></article>`).join("");
+  document.getElementById("grid").innerHTML=P.map(p=>`<article class="card">${pic(p.img)}<div class="card-body"><h3 style="font-family:Fraunces,serif;font-size:22px;font-weight:500">${p.name}</h3><p class="muted">${p.blurb}</p><p class="price">$${p.price}</p><div class="row" style="margin-top:auto"><div class="qty"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]||0}</span><button onclick="add('${p.id}',1)">+</button></div><button class="btn d" style="flex:1" onclick="add('${p.id}',1)">Add</button></div></div></article>`).join("");
   const items=P.filter(p=>cart[p.id]);
-  document.getElementById("cartBody").innerHTML=items.length?items.map(p=>`<div class="line"><img src="${p.img}" alt=""><div><b>${p.name}</b><div class="muted">$${p.price}</div><div class="qty" style="margin-top:6px"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]}</span><button onclick="add('${p.id}',1)">+</button></div></div><div>$${p.price*cart[p.id]}</div></div>`).join(""):"<p class='muted' style='padding:24px 0'>Your cart is empty.</p>";
+  document.getElementById("cartBody").innerHTML=items.length?items.map(p=>`<div class="line">${pic(p.img)}<div><b>${p.name}</b><div class="muted">$${p.price}</div><div class="qty" style="margin-top:6px"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]}</span><button onclick="add('${p.id}',1)">+</button></div></div><div>$${p.price*cart[p.id]}</div></div>`).join(""):"<p class='muted' style='padding:24px 0'>Your cart is empty.</p>";
   document.getElementById("totals").innerHTML=`<div><span>Subtotal</span><span>$${sub()}</span></div><div><span>Shipping</span><span>${ship()?"$"+ship():"Free"}</span></div><div class="grand"><span>Total</span><span>$${sub()+ship()}</span></div>`;
   payUI();
 }
