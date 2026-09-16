@@ -52,7 +52,7 @@ h2{font-family:Fraunces,serif;font-size:clamp(28px,4vw,44px);font-weight:500}
 .dock .pay{background:#fff;color:#12100e;border-radius:999px}
 .bg{position:fixed;inset:0;background:rgba(10,8,6,.45);display:none;z-index:40}
 .bg.show{display:block}
-.sheet{position:fixed;left:50%;top:8px;bottom:8px;width:min(480px,calc(100% - 14px));transform:translateX(120%);background:#f7f3ec;border-radius:22px;z-index:50;display:flex;flex-direction:column;transition:transform .28s ease}
+.sheet{position:fixed;left:50%;top:8px;bottom:8px;width:min(440px,calc(100% - 28px));transform:translateX(120%);background:#f7f3ec;border-radius:22px;z-index:50;display:flex;flex-direction:column;transition:transform .28s ease;overflow:hidden}
 .sheet.open{transform:translateX(-50%)}
 .hd{display:flex;justify-content:space-between;align-items:center;padding:16px}
 .hd h3{font-family:Fraunces,serif;font-size:28px;font-weight:500}
@@ -65,9 +65,14 @@ h2{font-family:Fraunces,serif;font-size:clamp(28px,4vw,44px);font-weight:500}
 label{display:block;margin:12px 0 6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
 input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);padding:10px 12px;background:#fff}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.pay-opt{display:flex;gap:10px;align-items:center;padding:12px;border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;background:#fff;min-height:56px}
-.pay-opt.selected{border-color:#12100e}
+.pay-opt{display:flex;gap:12px;align-items:center;padding:14px;border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;background:#fff;min-height:64px;width:100%;overflow:hidden;text-align:left;color:inherit}
+.pay-opt .dot{flex:0 0 22px;width:22px;height:22px;border-radius:99px;border:2px solid currentColor;display:flex;align-items:center;justify-content:center}
+.pay-opt .dot i{width:10px;height:10px;border-radius:99px;background:currentColor;display:none}
+.pay-opt.selected .dot i{display:block}
+.pay-opt > div{flex:1;min-width:0}
+.pay-opt.selected{border-color:#12100e;box-shadow:0 0 0 3px rgba(18,16,14,.08)}
 .apple{background:#111;color:#fff;border-color:#111}
+.apple .muted{color:#d7cfc6}
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#12100e;color:#fff;padding:10px 16px;border-radius:999px;display:none;z-index:80;font-weight:700}
 .ok{text-align:center;padding:28px 8px}
 @media(min-width:860px){.products{grid-template-columns:repeat(3,1fr)}.split{display:grid;grid-template-columns:1.1fr .9fr}.split img{height:100%;min-height:420px}}
@@ -148,6 +153,10 @@ const find=id=>P.find(p=>p.id===id);
 function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",1600)}
 function add(id,d=1){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];save();draw();if(d>0)toast(find(id).name+" added")}
 function pic(src){return `<img src="${src}" alt="" onerror="this.onerror=null;this.src='https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=800'">`}
+function payBtn(id,title,sub){
+  const on=pay===id;
+  return `<button type="button" class="pay-opt ${id==='apple'?'apple':''} ${on?'selected':''}" onclick="setPay('${id}')"><span class="dot"><i></i></span><div><b>${title}</b>${sub?`<div class="muted">${sub}</div>`:''}</div></button>`;
+}
 function draw(){
   document.getElementById("count").textContent=n();
   document.getElementById("grid").innerHTML=P.map(p=>`<article class="card">${pic(p.img)}<div class="card-body"><h3 style="font-family:Fraunces,serif;font-size:22px;font-weight:500">${p.name}</h3><p class="muted">${p.blurb}</p><p class="price">$${p.price}</p><div class="row" style="margin-top:auto"><div class="qty"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]||0}</span><button onclick="add('${p.id}',1)">+</button></div><button class="btn d" style="flex:1" onclick="add('${p.id}',1)">Add</button></div></div></article>`).join("");
@@ -169,12 +178,12 @@ function payUI(){
     f.innerHTML=`<button class="btn d full" onclick="toPay()">Continue to payment</button>`;
   }else{
     const tot=sub()+ship();
-    b.innerHTML=`<p class="muted" style="margin-bottom:10px">Pay $${tot} AUD. Demo only — no real charge.</p>
-      <div class="pay-opt apple ${pay==="apple"?"selected":""}" onclick="setPay('apple')"><input type="radio" ${pay==="apple"?"checked":""}><div><b>Apple Pay</b><div class="muted">Face ID on iPad</div></div></div>
-      <div class="pay-opt ${pay==="card"?"selected":""}" onclick="setPay('card')"><input type="radio" ${pay==="card"?"checked":""}><div><b>Card</b><div class="muted">Visa · Mastercard · Amex</div></div></div>
-      <div class="pay-opt ${pay==="paypal"?"selected":""}" onclick="setPay('paypal')"><input type="radio" ${pay==="paypal"?"checked":""}><div><b>PayPal</b></div></div>
-      <div class="pay-opt ${pay==="afterpay"?"selected":""}" onclick="setPay('afterpay')"><input type="radio" ${pay==="afterpay"?"checked":""}><div><b>Afterpay</b><div class="muted">4 × $${(tot/4).toFixed(2)}</div></div></div>
-      <div style="display:${pay==="card"?"block":"none"}"><label>Card number</label><input placeholder="ACCT-000015"><div class="two"><div><label>Expiry</label><input placeholder="MM/YY"></div><div><label>CVC</label><input placeholder="123"></div></div></div>
+    b.innerHTML=`<p class="muted" style="margin-bottom:12px">Pay $${tot} AUD. Demo only — no real charge.</p>`+
+      payBtn("apple","Apple Pay","Face ID on iPad")+
+      payBtn("card","Card","Visa · Mastercard · Amex")+
+      payBtn("paypal","PayPal","Pay in AUD")+
+      payBtn("afterpay","Afterpay","4 payments of $"+(tot/4).toFixed(2))+
+      `<div style="display:${pay==="card"?"block":"none"}"><label>Card number</label><input placeholder="ACCT-000015"><div class="two"><div><label>Expiry</label><input placeholder="MM/YY"></div><div><label>CVC</label><input placeholder="123"></div></div></div>
       <div class="totals" style="margin-top:12px"><div><span>Total</span><span>$${tot}</span></div></div>`;
     const lab={apple:"Pay with Apple Pay",card:"Pay $"+tot,paypal:"Pay with PayPal",afterpay:"Continue with Afterpay"}[pay];
     f.innerHTML=`<button class="btn g full" style="margin-bottom:8px;color:#12100e" onclick="step=1;payUI()">Back</button><button class="btn d full" onclick="place()">${lab}</button>`;
