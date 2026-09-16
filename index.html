@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Sturdy Chocolate</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f3efe8;--ink:#12100e;--mute:#6f675e;--card:#fffcf7;--line:rgba(18,16,14,.1);--safe:env(safe-area-inset-bottom,14px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:96px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+img{width:100%;display:block;object-fit:cover}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1100px,calc(100% - 28px));margin:0 auto}
+header{position:sticky;top:10px;z-index:20;width:min(1100px,calc(100% - 20px));margin:10px auto 0;background:rgba(243,239,232,.8);backdrop-filter:blur(16px);border-radius:18px;border:1px solid rgba(255,255,255,.45)}
+.nav{display:flex;justify-content:space-between;align-items:center;min-height:58px;padding:0 14px}
+.logo{font-family:Fraunces,serif;font-size:22px}
+.logo em{font-style:italic;color:var(--mute);font-weight:400}
+.icon{border:1px solid var(--line);background:#fff;border-radius:999px;min-height:42px;padding:0 14px;font-weight:700}
+.badge{background:#12100e;color:#fff;border-radius:99px;padding:1px 7px;font-size:12px;margin-left:4px}
+.hero{width:min(1100px,calc(100% - 20px));margin:14px auto;border-radius:26px;overflow:hidden;min-height:58vh;position:relative;display:flex;align-items:end}
+.hero img{position:absolute;inset:0;height:100%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(18,16,14,.7))}
+.hero-copy{position:relative;z-index:1;color:#fff;padding:28px}
+h1{font-family:Fraunces,serif;font-size:clamp(36px,7vw,72px);line-height:.95;font-weight:500;margin:8px 0 12px}
+.kicker{letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-weight:700}
+.btn{min-height:48px;border:0;border-radius:999px;padding:0 18px;font-weight:700}
+.btn.w{background:#fff;color:#12100e}
+.btn.d{background:#12100e;color:#fff}
+.btn.g{background:transparent;color:inherit;border:1px solid currentColor}
+.btn.full{width:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+section{padding:42px 0 8px}
+h2{font-family:Fraunces,serif;font-size:clamp(28px,4vw,44px);font-weight:500}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:var(--card);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.card img{height:200px}
+.card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.price{font-weight:800}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#fff;font-size:20px}
+.split{width:min(1100px,calc(100% - 20px));margin:20px auto;background:#171411;color:#efeae3;border-radius:26px;overflow:hidden}
+.split img{height:280px}
+.split-copy{padding:28px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.fact{background:rgba(255,255,255,.06);border-radius:14px;padding:12px}
+.muted{color:var(--mute);font-size:14px}
+.dock{position:fixed;left:50%;bottom:calc(12px + var(--safe));transform:translateX(-50%);width:min(520px,calc(100% - 16px));background:rgba(18,16,14,.94);color:#fff;border-radius:999px;display:grid;grid-template-columns:1fr 1fr 1.3fr;padding:6px;z-index:30}
+.dock button{background:0;border:0;color:#fff;min-height:48px;font-weight:700}
+.dock .pay{background:#fff;color:#12100e;border-radius:999px}
+.bg{position:fixed;inset:0;background:rgba(10,8,6,.45);display:none;z-index:40}
+.bg.show{display:block}
+.sheet{position:fixed;left:50%;top:8px;bottom:8px;width:min(480px,calc(100% - 14px));transform:translateX(120%);background:#f7f3ec;border-radius:22px;z-index:50;display:flex;flex-direction:column;transition:transform .28s ease}
+.sheet.open{transform:translateX(-50%)}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:16px}
+.hd h3{font-family:Fraunces,serif;font-size:28px;font-weight:500}
+.bd{padding:0 16px 16px;overflow:auto;flex:1}
+.ft{padding:14px 16px calc(14px + var(--safe));background:#fff;border-top:1px solid var(--line)}
+.line{display:grid;grid-template-columns:68px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}
+.line img{height:68px;border-radius:12px}
+.totals div{display:flex;justify-content:space-between;margin:6px 0}
+.grand{font-weight:800;font-size:18px}
+label{display:block;margin:12px 0 6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mute)}
+input,select,textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);padding:10px 12px;background:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay-opt{display:flex;gap:10px;align-items:center;padding:12px;border:1.5px solid var(--line);border-radius:14px;margin:0 0 8px;background:#fff;min-height:56px}
+.pay-opt.selected{border-color:#12100e}
+.apple{background:#111;color:#fff;border-color:#111}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#12100e;color:#fff;padding:10px 16px;border-radius:999px;display:none;z-index:80;font-weight:700}
+.ok{text-align:center;padding:28px 8px}
+@media(min-width:860px){.products{grid-template-columns:repeat(3,1fr)}.split{display:grid;grid-template-columns:1.1fr .9fr}.split img{height:100%;min-height:420px}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <a class="logo" href="#top">Sturdy <em>Chocolate</em></a>
+  <button class="icon" onclick="openSheet('cart')">Cart <span class="badge" id="count">0</span></button>
+</div></header>
+<section class="hero" id="top">
+  <img src="https://images.unsplash.com/photo-1549007994-cb92caebd546?auto=format&fit=crop&w=1400&q=70" alt="Chocolate box"/>
+  <div class="hero-copy">
+    <div class="kicker">Sydney · Handmade</div>
+    <h1>Chocolate with a quieter kind of luxury.</h1>
+    <p style="max-width:420px;margin-bottom:14px">Painted bonbons and gift boxes from a Sydney kitchen. Add a box, then check out on your iPad.</p>
+    <div class="row">
+      <button class="btn w" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop boxes</button>
+      <button class="btn g" onclick="openSheet('cart')">Open cart</button>
+    </div>
+  </div>
+</section>
+<section id="shop"><div class="wrap">
+  <div class="kicker">Collection</div>
+  <h2>Boxes worth giving.</h2>
+  <p class="muted" style="margin:8px 0 18px">Tap Add. Change quantity any time. Two-step checkout.</p>
+  <div class="products" id="grid"></div>
+</div></section>
+<section><div class="split">
+  <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=1200&q=70" alt="Bonbons"/>
+  <div class="split-copy">
+    <div class="kicker">The studio</div>
+    <h2>Made in Sydney, one shell at a time.</h2>
+    <p style="margin-top:10px">Sturdy Chocolate began as Sturdy Cocoa Co. Every shell is coloured, filled and capped by hand.</p>
+    <div class="facts">
+      <div class="fact"><b>Small batch</b><div class="muted">Made to order</div></div>
+      <div class="fact"><b>Sydney</b><div class="muted">Local kitchen</div></div>
+      <div class="fact"><b>Gift ready</b><div class="muted">Ribbon + card</div></div>
+    </div>
+  </div>
+</div></section>
+<nav class="dock">
+  <button onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop</button>
+  <button onclick="openSheet('cart')">Cart</button>
+  <button class="pay" onclick="goPay()">Checkout</button>
+</nav>
+<div class="bg" id="bg" onclick="closeSheets()"></div>
+<aside class="sheet" id="cart">
+  <div class="hd"><h3>Cart</h3><button class="icon" onclick="closeSheets()">Close</button></div>
+  <div class="bd" id="cartBody"></div>
+  <div class="ft">
+    <div class="totals" id="totals"></div>
+    <button class="btn d full" style="margin-top:10px" onclick="goPay()">Continue to checkout</button>
+  </div>
+</aside>
+<aside class="sheet" id="check">
+  <div class="hd"><h3 id="ct">Checkout</h3><button class="icon" onclick="closeSheets()">Close</button></div>
+  <div class="bd" id="cb"></div>
+  <div class="ft" id="cf"></div>
+</aside>
+<div class="toast" id="toast"></div>
+<script>
+const P=[
+  {id:"swirl",name:"Signature Swirl",price:68,img:"https://images.unsplash.com/photo-1549007994-cb92caebd546?auto=format&fit=crop&w=800&q=70",blurb:"Blush and ocean-blue bonbons. 16 pieces."},
+  {id:"ocean",name:"Ocean Wave",price:48,img:"https://images.unsplash.com/photo-1606312619070-d48b4e809a91?auto=format&fit=crop&w=800&q=70",blurb:"Marble shells, vanilla ganache. 12 pieces."},
+  {id:"artisan",name:"Artisan Colour",price:72,img:"https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=800&q=70",blurb:"Teal, gold, ruby and leaf. 12 pieces."},
+  {id:"painted",name:"Painted Mix",price:58,img:"https://images.unsplash.com/photo-1511381939415-e44015466831?auto=format&fit=crop&w=800&q=70",blurb:"Speckled and landscape shells. 12 pieces."},
+  {id:"jewel",name:"Jewel Box",price:79,img:"https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=70",blurb:"Jewel tones, fruit and caramel. 16 pieces."},
+  {id:"thanks",name:"Thank You",price:64,img:"https://images.unsplash.com/photo-1527904324834-3b7f9485267f?auto=format&fit=crop&w=800&q=70",blurb:"Black tray, gold bow and a card. 16 pieces."}
+];
+const cart=JSON.parse(localStorage.getItem("sc2")||"{}");
+let step=1,pay="apple",order=null;
+const save=()=>localStorage.setItem("sc2",JSON.stringify(cart));
+const n=()=>Object.values(cart).reduce((s,x)=>s+x,0);
+const sub=()=>P.reduce((s,p)=>s+(cart[p.id]||0)*p.price,0);
+const ship=()=>sub()>=120||!sub()?0:12;
+const find=id=>P.find(p=>p.id===id);
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",1600)}
+function add(id,d=1){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];save();draw();if(d>0)toast(find(id).name+" added")}
+function draw(){
+  document.getElementById("count").textContent=n();
+  document.getElementById("grid").innerHTML=P.map(p=>`<article class="card"><img src="${p.img}" alt="${p.name}"><div class="card-body"><h3 style="font-family:Fraunces,serif;font-size:22px;font-weight:500">${p.name}</h3><p class="muted">${p.blurb}</p><p class="price">$${p.price}</p><div class="row" style="margin-top:auto"><div class="qty"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]||0}</span><button onclick="add('${p.id}',1)">+</button></div><button class="btn d" style="flex:1" onclick="add('${p.id}',1)">Add</button></div></div></article>`).join("");
+  const items=P.filter(p=>cart[p.id]);
+  document.getElementById("cartBody").innerHTML=items.length?items.map(p=>`<div class="line"><img src="${p.img}" alt=""><div><b>${p.name}</b><div class="muted">$${p.price}</div><div class="qty" style="margin-top:6px"><button onclick="add('${p.id}',-1)">−</button><span>${cart[p.id]}</span><button onclick="add('${p.id}',1)">+</button></div></div><div>$${p.price*cart[p.id]}</div></div>`).join(""):"<p class='muted' style='padding:24px 0'>Your cart is empty.</p>";
+  document.getElementById("totals").innerHTML=`<div><span>Subtotal</span><span>$${sub()}</span></div><div><span>Shipping</span><span>${ship()?"$"+ship():"Free"}</span></div><div class="grand"><span>Total</span><span>$${sub()+ship()}</span></div>`;
+  payUI();
+}
+function openSheet(id){document.getElementById("bg").classList.add("show");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"));document.getElementById(id).classList.add("open");if(id==="check")payUI()}
+function closeSheets(){document.getElementById("bg").classList.remove("show");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))}
+function goPay(){if(!n()){openSheet("cart");toast("Add a box first");return}step=1;openSheet("check");payUI()}
+function payUI(){
+  const t=document.getElementById("ct"),b=document.getElementById("cb"),f=document.getElementById("cf");
+  if(!b)return;
+  if(order){t.textContent="Confirmed";b.innerHTML=`<div class="ok"><h2>It's on its way.</h2><p>Order <b>${order.id}</b></p><p class="muted">Paid with ${order.pay}. Total $${order.total}.</p></div>`;f.innerHTML=`<button class="btn d full" onclick="order=null;closeSheets()">Back to shop</button>`;return}
+  t.textContent=step===1?"Delivery":"Payment";
+  if(step===1){
+    b.innerHTML=`<label>Name</label><input id="cName" value="${localStorage.cName||""}"><label>Email</label><input id="cEmail" type="email" value="${localStorage.cEmail||""}"><label>Address</label><input id="cAddr" value="${localStorage.cAddr||""}"><div class="two"><div><label>Suburb</label><input id="cSub" value="${localStorage.cSub||""}"></div><div><label>Postcode</label><input id="cPost" value="${localStorage.cPost||"2000"}"></div></div><label>Gift message</label><textarea id="cNote"></textarea>`;
+    f.innerHTML=`<button class="btn d full" onclick="toPay()">Continue to payment</button>`;
+  }else{
+    const tot=sub()+ship();
+    b.innerHTML=`<p class="muted" style="margin-bottom:10px">Pay $${tot} AUD. Demo only — no real charge.</p>
+      <div class="pay-opt apple ${pay==="apple"?"selected":""}" onclick="setPay('apple')"><input type="radio" ${pay==="apple"?"checked":""}><div><b>Apple Pay</b><div class="muted">Face ID on iPad</div></div></div>
+      <div class="pay-opt ${pay==="card"?"selected":""}" onclick="setPay('card')"><input type="radio" ${pay==="card"?"checked":""}><div><b>Card</b><div class="muted">Visa · Mastercard · Amex</div></div></div>
+      <div class="pay-opt ${pay==="paypal"?"selected":""}" onclick="setPay('paypal')"><input type="radio" ${pay==="paypal"?"checked":""}><div><b>PayPal</b></div></div>
+      <div class="pay-opt ${pay==="afterpay"?"selected":""}" onclick="setPay('afterpay')"><input type="radio" ${pay==="afterpay"?"checked":""}><div><b>Afterpay</b><div class="muted">4 × $${(tot/4).toFixed(2)}</div></div></div>
+      <div style="display:${pay==="card"?"block":"none"}"><label>Card number</label><input placeholder="ACCT-000015"><div class="two"><div><label>Expiry</label><input placeholder="MM/YY"></div><div><label>CVC</label><input placeholder="123"></div></div></div>
+      <div class="totals" style="margin-top:12px"><div><span>Total</span><span>$${tot}</span></div></div>`;
+    const lab={apple:"Pay with Apple Pay",card:"Pay $"+tot,paypal:"Pay with PayPal",afterpay:"Continue with Afterpay"}[pay];
+    f.innerHTML=`<button class="btn g full" style="margin-bottom:8px;color:#12100e" onclick="step=1;payUI()">Back</button><button class="btn d full" onclick="place()">${lab}</button>`;
+  }
+}
+function toPay(){
+  if(!document.getElementById("cName").value.trim()||!document.getElementById("cEmail").value.trim()||!document.getElementById("cAddr").value.trim()){toast("Add name, email and address");return}
+  ["cName","cEmail","cAddr","cSub","cPost"].forEach(id=>localStorage[id]=document.getElementById(id).value);
+  step=2;payUI();
+}
+function setPay(m){pay=m;payUI()}
+function place(){
+  order={id:"SC-"+Math.floor(100000+Math.random()*900000),total:sub()+ship(),pay:{apple:"Apple Pay",card:"Card",paypal:"PayPal",afterpay:"Afterpay"}[pay]};
+  Object.keys(cart).forEach(k=>delete cart[k]);save();draw();toast("Payment successful");
+}
+draw();
+</script>
+</body>
+</html>
